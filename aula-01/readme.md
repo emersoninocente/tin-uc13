@@ -1,5 +1,10 @@
 # 📣 Aula 01 - Apresentação
 
+## 🎯 - Objetivos
+- Apresentação
+- Conhecer a disciplina
+- Acordos iniciais
+
 ## 🧑‍🎨 - Professor
 - Bal. Sistemas de Informações - Universidade Feevale
   - Pós-graduado em Formação Pedagógica
