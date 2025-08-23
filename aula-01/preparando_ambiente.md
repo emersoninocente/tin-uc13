@@ -147,3 +147,11 @@ EOF
 > Vamos abrir um navegador e digitar na URI o seguinte `http://localhost`. Isto deve nos mostrar uma página com a versão do PHP e seus parâmetros de configuração. Semelhante abaixo:
 
 ![Página de configuração do PHP](image-2.png)
+
+### 4) Instalando SGBD MySQL
+> Para que possamos armazenar dados de forma persistente para nossa aplicação, vamos usar o MySQL como SGBD, para que possamos então instalar o MySQL no nosso servidor, vamos executar o comando abaixo:
+```bash
+sudo apt install mysql-server -y
+```
+
+> Com isto, finalizamos o processo de preparar nosso ambiente. Para desenvolver em PHP podemos usar várias IDE´s, vamos trabalhar nesta disciplina com o Visual Studio Code, que já está instalado no computador.
