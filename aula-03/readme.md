@@ -45,12 +45,16 @@
 
 
 ## Variáveis
+- [Variáveis](https://www.php.net/manual/pt_BR/language.variables.php)
 
 ---
 ## Tipos de dados
+- [Tipos](https://www.php.net/manual/pt_BR/language.types.php)
 
 ---
 ## Operadores
+- [Operadores](https://www.php.net/manual/pt_BR/language.operators.php)
 
 ---
 ## Material Extra
+- [Documentação do PHP](https://www.php.net/manual/pt_BR/index.php)
