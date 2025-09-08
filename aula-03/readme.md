@@ -45,10 +45,51 @@
 
 
 ## Variáveis
+> Para declarar uma variável em PHP usamos o simbolo *$* antes do nome da variável. Os nomes de variáveis no PHP são *case sensitive*. Nomes válidos são iniciados com letras (A-Z, a-z) ou _ seguidos de qualquer número de letras, números ou sublinhados.
+
+- Escopo
+  - Global
+  - Local
+  - Uso da palavra-chave **global**
+- Estáticas
+- Externas
+
 - [Variáveis](https://www.php.net/manual/pt_BR/language.variables.php)
 
 ---
 ## Tipos de dados
+> O PHP possui tipagem dinâmica, ou seja, não há necessidade de especificar o tipo de dado de uma variável pois ele é determinado automaticamente em tempo de execução. Podemos determinar apenas a declaração de tipo para parâmetro de funções, valores de retorno e propriedades de classes.
+
+- `Parâmetro de funções`
+```php
+function soma(int $a, int $b): int {
+  return $a + $b;
+}
+
+echo soma(5,10);
+```
+
+- `Propriedade de classe`
+```php
+class Pessoa {
+    public string $nome;
+    public int $idade;
+}
+
+$pessoa = new Pessoa();
+$pessoa->nome = "João";
+$pessoa->idade = 30;
+```
+
+- `Constante de classe`
+```php
+class Config {
+    public const int MAX_USUARIOS = 100;
+}
+
+echo Config::MAX_USUARIOS; // Saída: 100
+```
+
 - [Tipos](https://www.php.net/manual/pt_BR/language.types.php)
 
 ---
