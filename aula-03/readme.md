@@ -1,4 +1,4 @@
-# 🛡️ Aula 03 - Declarando Variáveis, Tipos de Dados e Operadores
+# 🛡️ Aula 03 - Git, Variáveis e Tipos de Dados
 
 ## 🎯 - Objetivos
 - Apresentação Git e Github
