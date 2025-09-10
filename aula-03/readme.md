@@ -93,9 +93,5 @@ echo Config::MAX_USUARIOS; // Saída: 100
 - [Tipos](https://www.php.net/manual/pt_BR/language.types.php)
 
 ---
-## Operadores
-- [Operadores](https://www.php.net/manual/pt_BR/language.operators.php)
-
----
 ## Material Extra
 - [Documentação do PHP](https://www.php.net/manual/pt_BR/index.php)
