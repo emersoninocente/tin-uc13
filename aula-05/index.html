@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 03 e 04: Estruturas de Controle e Funções em PHP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: A single-page application with a fixed sidebar for navigation and a main content area. This structure allows students to easily jump between topics (Condicionais, Loops, Funções, etc.) without losing context, which is better than linear scrolling through a static document. Key interactions include buttons to simulate CLI execution of code examples and toggles to reveal solutions for exercises, promoting active learning. This design was chosen for its user-friendliness in an educational context, prioritizing ease of navigation and interactive engagement over a simple static page. -->
+    <!-- Visualization & Content Choices: The source material is a text-based lesson plan. Therefore, no data charts are needed. The primary 'visualization' is the clear, structured presentation of text and code. Report Info -> Goal -> Presentation Method -> Interaction -> Justification. | Lesson Sections -> Inform/Teach -> HTML sections with text and styled code blocks -> Sidebar navigation -> Allows non-linear study. | PHP Code Examples -> Demonstrate concepts -> Interactive code blocks -> "Simulate Execution" button reveals output -> Engages student and provides immediate feedback. | Exercises -> Test knowledge -> Titled sections with problems -> "Show Solution" toggle button -> Allows students to attempt problems before seeing the answer. | Variable Scope -> Explain abstract concept -> Simple diagram using styled HTML divs -> Visually clarifies a difficult topic better than text alone. | All interactions are implemented with vanilla JavaScript. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap');
+        .font-code {
+            font-family: 'Fira Code', monospace;
+        }
+        .active-nav {
+            background-color: #dbeafe;
+            color: #1e40af;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 bg-slate-100 p-6 fixed top-0 left-0 h-full overflow-y-auto hidden md:block border-r border-slate-200">
+            <h2 class="text-lg font-bold text-blue-800 mb-6">Tópicos da Aula</h2>
+            <nav id="desktop-nav">
+                <h3 class="font-semibold text-slate-600 mt-4 mb-2">Parte 1: Controle</h3>
+                <ul class="space-y-2">
+                    <li><a href="#introducao" class="block px-4 py-2 rounded-md text-sm hover:bg-slate-200">Introdução</a></li>
+                    <li><a href="#condicionais" class="block px-4 py-2 rounded-md text-sm hover:bg-slate-200">Estruturas Condicionais</a></li>
+                    <li><a href="#repeticao" class="block px-4 py-2 rounded-md text-sm hover:bg-slate-200">Estruturas de Repetição</a></li>
+                </ul>
+                <h3 class="font-semibold text-slate-600 mt-6 mb-2">Parte 2: Funções</h3>
+                <ul class="space-y-2">
+                    <li><a href="#intro-funcoes" class="block px-4 py-2 rounded-md text-sm hover:bg-slate-200">Introdução a Funções</a></li>
+                    <li><a href="#declarando-funcoes" class="block px-4 py-2 rounded-md text-sm hover:bg-slate-200">Declaração e Parâmetros</a></li>
+                    <li><a href="#retorno-escopo" class="block px-4 py-2 rounded-md text-sm hover:bg-slate-200">Retorno e Escopo</a></li>
+                </ul>
+                <h3 class="font-semibold text-slate-600 mt-6 mb-2">Prática</h3>
+                <ul class="space-y-2">
+                    <li><a href="#exercicios" class="block px-4 py-2 rounded-md text-sm hover:bg-slate-200">Exercícios Práticos</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-64 p-6 md:p-12">
+            <header class="mb-12 border-b border-slate-300 pb-6">
+                <h1 class="text-4xl font-bold text-slate-900">Aula 03 e 04: Estruturas de Controle e Funções em PHP</h1>
+                <p class="mt-2 text-lg text-slate-600">Um guia interativo para controlar o fluxo do seu código e criar blocos reutilizáveis.</p>
+            </header>
+
+            <!-- Introduction Section -->
+            <section id="introducao" class="mb-16 space-y-4 scroll-mt-20">
+                <h2 class="text-3xl font-bold text-blue-800">1. Introdução e Revisão</h2>
+                <p>Nesta aula, vamos aprender a controlar o fluxo de execução de um programa. Em vez do código rodar sempre em linha reta, de cima para baixo, vamos ensiná-lo a tomar decisões, desviar de caminhos e repetir tarefas. Para isso, usaremos os resultados das expressões que aprendemos na aula passada, especialmente os valores booleanos (`true` e `false`), para guiar o comportamento do nosso script.</p>
+            </section>
+
+            <!-- Conditionals Section -->
+            <section id="condicionais" class="mb-16 space-y-6 scroll-mt-20">
+                <h2 class="text-3xl font-bold text-blue-800">2. Estruturas Condicionais</h2>
+                <p>Estruturas condicionais permitem que o programa execute blocos de código diferentes com base em uma condição ser verdadeira ou falsa. As principais são `if`, `elseif`, `else` e `switch`.</p>
+                
+                <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
+                    <h3 class="text-xl font-semibold mb-2">Exemplo 1: Média do Aluno com `if-elseif-else`</h3>
+                    <p class="mb-4 text-sm text-slate-600">Este código verifica a nota final de um aluno e exibe seu status (Aprovado, Recuperação ou Reprovado).</p>
+                    <div class="code-example">
+                        <pre class="bg-slate-800 text-white p-4 rounded-md font-code text-sm overflow-x-auto"><code>&lt;?php
+
+$nota_final = 6.5;
+echo "A nota final do aluno foi $nota_final.\n";
+
+if ($nota_final >= 7.0) {
+    echo "Status: Aprovado!\n";
+} elseif ($nota_final >= 5.0) {
+    echo "Status: Em recuperação.\n";
+} else {
+    echo "Status: Reprovado.\n";
+}
+
+?&gt;</code></pre>
+                        <button class="run-button mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition" data-target="output-1">▶ Simular Execução (CLI)</button>
+                        <div id="output-1" class="cli-output hidden mt-4 bg-black text-green-400 p-4 rounded-md font-code text-sm">
+                            <p>A nota final do aluno foi 6.5.</p>
+                            <p>Status: Em recuperação.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
+                    <h3 class="text-xl font-semibold mb-2">Exemplo 2: Menu de Opções com `switch`</h3>
+                    <p class="mb-4 text-sm text-slate-600">O `switch` é útil para comparar uma variável com múltiplos valores possíveis, como em um menu de opções.</p>
+                    <div class="code-example">
+                        <pre class="bg-slate-800 text-white p-4 rounded-md font-code text-sm overflow-x-auto"><code>&lt;?php
+
+$opcao = 2;
+echo "Opção escolhida: $opcao\n";
+
+switch ($opcao) {
+    case 1:
+        echo "Você escolheu 'Ver Perfil'.\n";
+        break;
+    case 2:
+        echo "Você escolheu 'Editar Perfil'.\n";
+        break;
+    default:
+        echo "Opção inválida.\n";
+        break;
+}
+
+?&gt;</code></pre>
+                        <button class="run-button mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition" data-target="output-2">▶ Simular Execução (CLI)</button>
+                        <div id="output-2" class="cli-output hidden mt-4 bg-black text-green-400 p-4 rounded-md font-code text-sm">
+                            <p>Opção escolhida: 2</p>
+                            <p>Você escolheu 'Editar Perfil'.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+             <!-- Loops Section -->
+            <section id="repeticao" class="mb-16 space-y-6 scroll-mt-20">
+                <h2 class="text-3xl font-bold text-blue-800">3. Estruturas de Repetição (Loops)</h2>
+                <p>Loops são usados para executar o mesmo bloco de código várias vezes, seja enquanto uma condição for verdadeira (`while`) ou por um número predefinido de vezes (`for`).</p>
+                
+                <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
+                    <h3 class="text-xl font-semibold mb-2">Exemplo 3: Contador com `while`</h3>
+                    <p class="mb-4 text-sm text-slate-600">Este loop `while` executa enquanto o contador for menor ou igual a 5. É essencial incrementar o contador dentro do loop para evitar um loop infinito.</p>
+                    <div class="code-example">
+                        <pre class="bg-slate-800 text-white p-4 rounded-md font-code text-sm overflow-x-auto"><code>&lt;?php
+
+$contador = 1;
+
+while ($contador <= 5) {
+    echo "Execução número: $contador\n";
+    $contador++;
+}
+
+?&gt;</code></pre>
+                        <button class="run-button mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition" data-target="output-3">▶ Simular Execução (CLI)</button>
+                        <div id="output-3" class="cli-output hidden mt-4 bg-black text-green-400 p-4 rounded-md font-code text-sm">
+                            <p>Execução número: 1</p>
+                            <p>Execução número: 2</p>
+                            <p>Execução número: 3</p>
+                            <p>Execução número: 4</p>
+                            <p>Execução número: 5</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
+                    <h3 class="text-xl font-semibold mb-2">Exemplo 4: Tabuada com `for`</h3>
+                    <p class="mb-4 text-sm text-slate-600">O loop `for` é ideal para situações onde sabemos exatamente quantas vezes queremos repetir, como ao criar uma tabuada.</p>
+                    <div class="code-example">
+                        <pre class="bg-slate-800 text-white p-4 rounded-md font-code text-sm overflow-x-auto"><code>&lt;?php
+
+$numero = 7;
+echo "Tabuada do $numero:\n";
+
+for ($i = 1; $i <= 10; $i++) {
+    $resultado = $numero * $i;
+    echo "$numero x $i = $resultado\n";
+}
+
+?&gt;</code></pre>
+                        <button class="run-button mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition" data-target="output-4">▶ Simular Execução (CLI)</button>
+                        <div id="output-4" class="cli-output hidden mt-4 bg-black text-green-400 p-4 rounded-md font-code text-sm">
+                            <p>Tabuada do 7:</p>
+                            <p>7 x 1 = 7</p>
+                            <p>7 x 2 = 14</p>
+                            <p>7 x 3 = 21</p>
+                            <p>7 x 4 = 28</p>
+                            <p>7 x 5 = 35</p>
+                            <p>7 x 6 = 42</p>
+                            <p>7 x 7 = 49</p>
+                            <p>7 x 8 = 56</p>
+                            <p>7 x 9 = 63</p>
+                            <p>7 x 10 = 70</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Functions Intro Section -->
+            <section id="intro-funcoes" class="mb-16 space-y-4 scroll-mt-20">
+                <h2 class="text-3xl font-bold text-blue-800">4. Introdução a Funções</h2>
+                <p>Funções são blocos de código nomeados que realizam uma tarefa específica. Elas são essenciais para escrever código limpo, organizado e reutilizável, seguindo o princípio DRY (Don't Repeat Yourself - Não se Repita).</p>
+                <ul class="list-disc list-inside space-y-2 bg-blue-50 border border-blue-200 p-4 rounded-md">
+                    <li><span class="font-semibold">Reutilização de Código:</span> Escreva uma vez, use quantas vezes quiser.</li>
+                    <li><span class="font-semibold">Organização:</span> Divida um programa grande em partes menores e mais gerenciáveis.</li>
+                    <li><span class="font-semibold">Manutenção:</span> Se precisar corrigir um bug, você corrige em um só lugar.</li>
+                </ul>
+            </section>
+
+            <!-- Functions Declaration Section -->
+            <section id="declarando-funcoes" class="mb-16 space-y-6 scroll-mt-20">
+                <h2 class="text-3xl font-bold text-blue-800">5. Declaração e Parâmetros</h2>
+                <p>Declaramos uma função com a palavra-chave `function` e podemos passar dados para ela através de parâmetros (os "ingredientes" da função).</p>
+                 <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
+                    <h3 class="text-xl font-semibold mb-2">Exemplo 5: Função com Parâmetros</h3>
+                    <p class="mb-4 text-sm text-slate-600">A função `exibirBoasVindas` recebe um nome como parâmetro para personalizar a saudação. A função `somar` recebe dois números.</p>
+                    <div class="code-example">
+                        <pre class="bg-slate-800 text-white p-4 rounded-md font-code text-sm overflow-x-auto"><code>&lt;?php
+
+function exibirBoasVindas($nome_usuario) {
+    echo "Olá, $nome_usuario! Seja bem-vindo(a).\n";
+}
+
+exibirBoasVindas("Maria");
+exibirBoasVindas("João");
+
+function somar($num1, $num2) {
+    $soma = $num1 + $num2;
+    echo "A soma de $num1 e $num2 é: $soma\n";
+}
+
+somar(10, 5);
+
+?&gt;</code></pre>
+                        <button class="run-button mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition" data-target="output-5">▶ Simular Execução (CLI)</button>
+                        <div id="output-5" class="cli-output hidden mt-4 bg-black text-green-400 p-4 rounded-md font-code text-sm">
+                            <p>Olá, Maria! Seja bem-vindo(a).</p>
+                            <p>Olá, João! Seja bem-vindo(a).</p>
+                            <p>A soma de 10 e 5 é: 15</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+             <!-- Return and Scope Section -->
+            <section id="retorno-escopo" class="mb-16 space-y-6 scroll-mt-20">
+                <h2 class="text-3xl font-bold text-blue-800">6. Retorno e Escopo de Variáveis</h2>
+                <p>Funções podem devolver um valor usando a palavra-chave `return`. Isso permite que o resultado da função seja armazenado em variáveis ou usado em outras expressões.</p>
+                <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
+                    <h3 class="text-xl font-semibold mb-2">Exemplo 6: Função com `return`</h3>
+                    <p class="mb-4 text-sm text-slate-600">A função `calcularMedia` não exibe nada na tela, ela apenas calcula e retorna o valor da média. Nós então decidimos o que fazer com esse valor retornado.</p>
+                    <div class="code-example">
+                        <pre class="bg-slate-800 text-white p-4 rounded-md font-code text-sm overflow-x-auto"><code>&lt;?php
+
+function calcularMedia($n1, $n2, $n3) {
+    $media = ($n1 + $n2 + $n3) / 3;
+    return $media;
+}
+
+$media_aluno1 = calcularMedia(8, 7, 9);
+echo "A média do aluno 1 é: " . number_format($media_aluno1, 2) . "\n";
+
+if (calcularMedia(4, 5, 4.5) >= 7) {
+    echo "O aluno 2 foi aprovado.\n";
+} else {
+    echo "O aluno 2 NÃO foi aprovado.\n";
+}
+
+?&gt;</code></pre>
+                        <button class="run-button mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition" data-target="output-6">▶ Simular Execução (CLI)</button>
+                        <div id="output-6" class="cli-output hidden mt-4 bg-black text-green-400 p-4 rounded-md font-code text-sm">
+                            <p>A média do aluno 1 é: 8.00</p>
+                            <p>O aluno 2 NÃO foi aprovado.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
+                    <h3 class="text-xl font-semibold mb-2">Escopo de Variáveis: Local vs. Global</h3>
+                    <p class="mb-4 text-sm text-slate-600">Variáveis declaradas dentro de uma função (`escopo local`) não são acessíveis fora dela, e vice-versa. Isso evita conflitos e alterações acidentais de dados.</p>
+                    <div class="flex flex-col md:flex-row gap-4 items-center">
+                        <div class="w-full md:w-1/2">
+                          <pre class="bg-slate-800 text-white p-4 rounded-md font-code text-sm overflow-x-auto"><code>&lt;?php
+$nome_global = "Global";
+
+function minhaFuncao() {
+    $nome_local = "Local";
+    echo $nome_local; // Funciona
+    // echo $nome_global; // ERRO
+}
+
+minhaFuncao();
+// echo $nome_local; // ERRO
+?&gt;</code></pre>
+                        </div>
+                        <div class="w-full md:w-1/2 p-4 border-2 border-dashed border-slate-300 rounded-lg">
+                           <div class="bg-blue-100 text-blue-800 p-4 rounded-md">
+                               <p class="font-bold text-center">Escopo Global</p>
+                               <p class="font-code text-sm text-center mb-2">$nome_global</p>
+                               <div class="bg-green-100 text-green-800 p-4 rounded-md mt-2">
+                                   <p class="font-bold text-center">Escopo Local (minhaFuncao)</p>
+                                   <p class="font-code text-sm text-center">$nome_local</p>
+                               </div>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Exercises Section -->
+            <section id="exercicios" class="scroll-mt-20">
+                <h2 class="text-3xl font-bold text-blue-800 mb-6">7. Exercícios Práticos</h2>
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
+                        <h3 class="text-xl font-semibold">Exercício 1: Verificador de Elegibilidade para Voto</h3>
+                        <p class="mt-2 text-slate-600">Crie uma função `podeVotar($idade)` que retorna "Não pode votar" (menor que 16), "Voto facultativo" (16, 17 ou > 70) ou "Voto obrigatório" (18 a 70).</p>
+                        <button class="solution-toggle mt-4 px-4 py-2 bg-slate-500 text-white rounded-md hover:bg-slate-600 transition" data-target="solucao-1">Ver Solução</button>
+                        <div id="solucao-1" class="solution hidden mt-4">
+                            <pre class="bg-slate-800 text-white p-4 rounded-md font-code text-sm overflow-x-auto"><code>&lt;?php
+function podeVotar($idade) {
+    if ($idade < 16) {
+        return "Não pode votar";
+    } elseif (($idade >= 16 && $idade < 18) || $idade > 70) {
+        return "Voto facultativo";
+    } else {
+        return "Voto obrigatório";
+    }
+}
+
+echo "15 anos: " . podeVotar(15) . "\n";
+echo "17 anos: " . podeVotar(17) . "\n";
+echo "25 anos: " . podeVotar(25) . "\n";
+?&gt;</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
+                        <h3 class="text-xl font-semibold">Exercício 2: Calculadora com Funções</h3>
+                        <p class="mt-2 text-slate-600">Crie funções para as 4 operações matemáticas básicas (`adicao`, `subtracao`, etc.). A função de divisão deve retornar uma mensagem de erro se o divisor for zero.</p>
+                        <button class="solution-toggle mt-4 px-4 py-2 bg-slate-500 text-white rounded-md hover:bg-slate-600 transition" data-target="solucao-2">Ver Solução</button>
+                        <div id="solucao-2" class="solution hidden mt-4">
+                            <pre class="bg-slate-800 text-white p-4 rounded-md font-code text-sm overflow-x-auto"><code>&lt;?php
+function adicao($a, $b) { return $a + $b; }
+function subtracao($a, $b) { return $a - $b; }
+function multiplicacao($a, $b) { return $a * $b; }
+function divisao($a, $b) {
+    if ($b === 0) {
+        return "Erro: Divisão por zero!";
+    }
+    return $a / $b;
+}
+
+echo "10 + 5 = " . adicao(10, 5) . "\n";
+echo "10 / 0 = " . divisao(10, 0) . "\n";
+?&gt;</code></pre>
+                        </div>
+                    </div>
+
+                     <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
+                        <h3 class="text-xl font-semibold">Exercício 3 (Desafio): Caixa Eletrônico</h3>
+                        <p class="mt-2 text-slate-600">Crie funções para `verSaldo`, `depositar` e `sacar`, manipulando uma variável de saldo. A função `sacar` deve verificar se há fundos suficientes.</p>
+                        <button class="solution-toggle mt-4 px-4 py-2 bg-slate-500 text-white rounded-md hover:bg-slate-600 transition" data-target="solucao-3">Ver Solução</button>
+                        <div id="solucao-3" class="solution hidden mt-4">
+                            <pre class="bg-slate-800 text-white p-4 rounded-md font-code text-sm overflow-x-auto"><code>&lt;?php
+$saldo = 1000;
+
+function depositar($valor) {
+    global $saldo;
+    if ($valor > 0) {
+      $saldo += $valor;
+      echo "Depósito de R$$valor realizado.\n";
+    }
+}
+
+function sacar($valor) {
+    global $saldo;
+    if ($valor > 0 && $saldo >= $valor) {
+        $saldo -= $valor;
+        echo "Saque de R$$valor realizado.\n";
+    } else {
+        echo "Saldo insuficiente ou valor inválido.\n";
+    }
+}
+
+function verSaldo() {
+    global $saldo;
+    echo "Saldo atual: R$$saldo\n";
+}
+
+verSaldo();
+depositar(200);
+sacar(500);
+sacar(800);
+verSaldo();
+?&gt;</code></pre>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Handle code execution simulation
+        const runButtons = document.querySelectorAll('.run-button');
+        runButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
+                const outputDiv = document.getElementById(targetId);
+                if (outputDiv) {
+                    outputDiv.classList.toggle('hidden');
+                }
+            });
+        });
+
+        // Handle solution toggles
+        const solutionToggles = document.querySelectorAll('.solution-toggle');
+        solutionToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const targetId = toggle.getAttribute('data-target');
+                const solutionDiv = document.getElementById(targetId);
+                if (solutionDiv) {
+                    solutionDiv.classList.toggle('hidden');
+                    toggle.textContent = solutionDiv.classList.contains('hidden') ? 'Ver Solução' : 'Ocultar Solução';
+                }
+            });
+        });
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('#desktop-nav a');
+        
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active-nav');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active-nav');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    });
+</script>
+</body>
+</html>
