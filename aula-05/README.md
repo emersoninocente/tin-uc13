@@ -5,12 +5,12 @@
 - Compreender e implementar loops (for, while, do-while, foreach)
 
 ---
-## Introdução
+## 🖱️ Introdução
 Nesta aula, vamos aprender a controlar o fluxo de execução de um programa. Em vez do código rodar sempre em linha reta, de cima para baixo, vamos ensiná-lo a tomar decisões, desviar de caminhos e repetir tarefas. Para isso, usaremos os resultados das expressões que aprendemos na aula passada, especialmente os valores booleanos (`true` e `false`), para guiar o comportamento do nosso script.
 
 ## Estruturas condicionais
 
-### IF IF-ELSE IF-ELSEIF-ELSE
+### 🧩 IF IF-ELSE IF-ELSEIF-ELSE
 O `if` é um dos recursos mais importantes em muitas linguagens, inclusive no PHP. Permite a execução condicional de fragmentos de código. O PHP apresenta uma estrutura `if` semelhante a do C:
 ```php
 if (expr) { // se expr for avaliada como true será executado
@@ -72,7 +72,7 @@ if (expr) {
 ```
 > O `if` pode ser aninhado dentro de outros `if`, quantos forem necessários.
 
-### SWITCH
+### ✏️ SWITCH
 A declaração `switch` é similar a uma série de declarações `IF` na mesma expressão. Em muitos casos, se deseja comparar as mesmas variáveis (ou expressões), com diferentes valores, e executar pedaços diferentes de código dependendo de qual valor ela é igual. Esta é exatamente a serventia da declaração switch.
 
 **Exemplo simples**
@@ -95,7 +95,7 @@ A declaração `switch` é similar a uma série de declarações `IF` na mesma e
 ?>
 ```
 
-### MATCH
+### 📖 MATCH
 A expressão `match` ramifica a avaliação baseada em uma verificação de identidade de um valor. Semelhante a uma declaração `switch`, uma expressão `match` possui uma expressão sujeito que é comparada com múltiplas alternativas. Ao contrário da `switch`, ela irá avaliar para um valor assim como as expressões ternárias. Diferente da `switch`, a comparação é uma verificação de identidade `(===)` em vez de uma comparação de igualdade fraca `(==)`. Expressões `match` estão disponíveis a partir do PHP 8.0.0.
 
 **Exemplo simples**
@@ -113,10 +113,10 @@ A expressão `match` ramifica a avaliação baseada em uma verificação de iden
 ?>
 ```
 
-## Estruturas de repetição
+## ⚙️ Estruturas de repetição
 Os laços for são os mais complexos no PHP. Possui comportamento semelhante ao C.
 
-### FOR
+### 🔄 FOR
 A sintaxe do laço for é:
 ```php
 for (expr1; expr2; expr3)
@@ -177,7 +177,7 @@ Cada uma das expressões podem ser vazias ou conter múltiplas expressões separ
 ?>
 ```
 
-### WHILE
+### 🧾 WHILE
 Laços `while` são os mais simples tipos de laços do PHP. Possui comportamento semelhante ao C. O formato básico de uma declaração while é:
 ```php
 while (expr)
@@ -215,7 +215,7 @@ endwhile;
 ?>
 ```
 
-### DO-WHILE
+### 📋 DO-WHILE
 Os laços `do-while` são muito similares aos laços `while`, com exceção que a expressão de avaliação é verificada ao final de cada iteração em vez de no começo. A maior diferença para o laço `while` é que a primeira iteração do laço `do-while` sempre é executada (a expressão de avaliação é executada somente no final da iteração), considerando que no laço `while` não é necessariamente executada (a expressão de avaliação é executada no começo de cada iteração, se avaliada como false logo no começo, a execução do laço será abortada imediatamente). \
 Só há uma sintaxe para o laço do-while:
 ```php
@@ -229,7 +229,7 @@ do {
 O laço acima será executado somente uma vez, pois após a primeira iteração, quando a expressão de avaliação for executada, resultará em `false` (`$i` não é maior que 0) e a execução do laço será encerrada.
 
 
-### FOREACH
+### 🚀 FOREACH
 O construtor `foreach` fornece uma maneira fácil de iterar sobre *arrays* e objetos. O `foreach` emitirá um erro quando usado com uma variável contendo um tipo de dado diferente ou com uma variável não inicializada. \
 `foreach` pode, opcionalmente, obter a chave (key) de cada elemento:
 ```php
