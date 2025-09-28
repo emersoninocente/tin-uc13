@@ -234,7 +234,7 @@ echo "Média de avaliações: " . $filme->calculaMedia() . PHP_EOL;
 ?>
 ```
 
-## Método Construtor (étodos Mágicos)
+## Método Construtor (Métodos Mágicos)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;É um método chamado automaticamente pela linguagem e começa com dois *underlines* **__construct()** e tendo o nome específico. Tradicionalmente teriamos de criar métodos **getter** e **setter** para manipularmos as variáveis de nossa classe, usando o construtor podemos eliminar alguns **setter** e permanecendo assim apenas os **getter**. O que garante o encapsulamento e a segurança dos dados, além de deixar nosso código mais limpo e organizado. \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Para conhecer mais sobre métodos mágicos, recomendo a leitura do artigo [Explorando métodos mágicos no PHP](https://dias.dev/2023-08-11-metodos-magicos-php/).
 
@@ -301,17 +301,10 @@ echo "Filme " . $filme->nome() . " tem Média de avaliações: " . $filme->calcu
 ?>
 ```
 
-
-
-
-
-
-
-
-
-
+---
 
 ## ✏️ - Exercícios
+
 1) Levando em consideração o código abaixo:
 
 ```php
