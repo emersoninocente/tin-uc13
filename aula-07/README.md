@@ -175,7 +175,7 @@
   ```
 
 ## 📌 - Criando a estrutura OOP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Já entendemos que a Programação Orientada à Objetos vêm para organizar o código e facilitar o desenvolvimento e a manutenção (vide documento [anexo]() - fonte:https://docs.ufpr.br/~ademirlp/Manutencao.pdf - acessado em 27/09/2025).
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Já entendemos que a Programação Orientada à Objetos vêm para organizar o código e facilitar o desenvolvimento e a manutenção (vide documento [anexo](https://github.com/emersoninocente/tin-uc13/blob/main/aula-07/ManutencaoSoftware.pdf) - fonte:https://docs.ufpr.br/~ademirlp/Manutencao.pdf - acessado em 27/09/2025).
 
 ### Classes
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uma classe nada mais é do que um novo tipo. Vamos pensar em um filme, o que precisamos para identificar um filme?
