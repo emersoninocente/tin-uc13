@@ -175,7 +175,7 @@
   ```
 
 ## 📌 - Criando a estrutura OOP
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Já entendemos que a Programação Orientada à Objetos vêm para organizar o código e facilitar o desenvolvimento e a manutenção (vide documento [anexo](https://github.com/emersoninocente/tin-uc13/blob/main/aula-07/ManutencaoSoftware.pdf) - fonte:https://docs.ufpr.br/~ademirlp/Manutencao.pdf - acessado em 27/09/2025).
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Já entendemos que a Programação Orientada à Objetos vêm para organizar o código e facilitar o desenvolvimento e a manutenção (vide documento [anexo](https://github.com/emersoninocente/tin-uc13/blob/main/aula-07/ManutencaoSoftware.pdf) - fonte: https://docs.ufpr.br/~ademirlp/Manutencao.pdf - acessado em 27/09/2025). Vamos conciliar a OOP com outro conceito que é o [MVC](https://www.devmedia.com.br/introducao-ao-padrao-mvc/29308) (Model-View-Controller), onde dividimos o código em três partes principais onde a **Model** é responsável pelo acesso aos dados e lógica de negócio, a **View** pela apresentação dos dados ao usuário e a **Controller** pela interação entre as outras duas camadas.
 
 ### Classes
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uma classe nada mais é do que um novo tipo. Vamos pensar em um filme, o que precisamos para identificar um filme?
@@ -233,6 +233,83 @@ var_dump($filme);
 echo "Média de avaliações: " . $filme->calculaMedia() . PHP_EOL;
 ?>
 ```
+
+## Método Construtor (étodos Mágicos)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;É um método chamado automaticamente pela linguagem e começa com dois *underlines* **__construct()** e tendo o nome específico. Tradicionalmente teriamos de criar métodos **getter** e **setter** para manipularmos as variáveis de nossa classe, usando o construtor podemos eliminar alguns **setter** e permanecendo assim apenas os **getter**. O que garante o encapsulamento e a segurança dos dados, além de deixar nosso código mais limpo e organizado. \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Para conhecer mais sobre métodos mágicos, recomendo a leitura do artigo [Explorando métodos mágicos no PHP](https://dias.dev/2023-08-11-metodos-magicos-php/).
+
+#### Exemplo
+
+`src/Model/Filme.php`
+```php
+<?php
+  class Filme {
+    public array $notas = [];
+    
+    public function __construct(
+      private string $nome,
+      private int $anoPublicacao,
+      private string $genero,
+      private string $estudio        
+    ) {
+      $this->notas = [];
+    }
+    
+    public function nome(): string {
+      return $this->nome;
+    }
+
+    public function anoPublicacao(): int {
+      return $this->anoPublicacao;
+    }
+      
+    public function genero(): string {
+      return $this->genero;
+    }
+
+    public function estudio(): string {
+      return $this->estudio;
+    }
+
+    public function avalia(float $nota): void {
+      $this->notas[] = $nota;
+    }
+
+    public function calculaMedia(): float {
+      $total = array_sum($this->notas);
+      $quantidade = count($this->notas);
+      return $quantidade === 0 ? 0 : $total / $quantidade;
+    }
+  }
+?>
+```
+
+`src/index.php`
+```php
+<?php
+require __DIR__ . '/Model/Filme.php';
+
+$filme = new Filme("O Senhor dos Anéis", 2001, "Fantasia", "New Line Cinema");
+
+$filme->avalia(8);
+$filme->avalia(9);
+$filme->avalia(10);
+
+var_dump($filme);
+
+echo "Filme " . $filme->nome() . " tem Média de avaliações: " . $filme->calculaMedia() . PHP_EOL;
+?>
+```
+
+
+
+
+
+
+
+
+
+
 
 ## ✏️ - Exercícios
 1) Levando em consideração o código abaixo:
