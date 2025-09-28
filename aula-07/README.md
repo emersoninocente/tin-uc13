@@ -174,6 +174,8 @@
     }
   ```
 
+---
+
 ## 📌 - Criando a estrutura OOP
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Já entendemos que a Programação Orientada à Objetos vêm para organizar o código e facilitar o desenvolvimento e a manutenção (vide documento [anexo](https://github.com/emersoninocente/tin-uc13/blob/main/aula-07/ManutencaoSoftware.pdf) - fonte: https://docs.ufpr.br/~ademirlp/Manutencao.pdf - acessado em 27/09/2025). Vamos conciliar a OOP com outro conceito que é o [MVC](https://www.devmedia.com.br/introducao-ao-padrao-mvc/29308) (Model-View-Controller), onde dividimos o código em três partes principais onde a **Model** é responsável pelo acesso aos dados e lógica de negócio, a **View** pela apresentação dos dados ao usuário e a **Controller** pela interação entre as outras duas camadas.
 
@@ -300,6 +302,69 @@ var_dump($filme);
 echo "Filme " . $filme->nome() . " tem Média de avaliações: " . $filme->calculaMedia() . PHP_EOL;
 ?>
 ```
+> Nosso código já está mais robusto, mas ainda temos a questão do **genero** que está como uma string "livre", enquanto na realidade temos alguns gêneros de filmes apenas. Precisamos ver uma forma de controlar ou limitar os gêneros, para isto vamos criar um outro **Model** chamado **Genero.php** onde vamos usar um **ENUM** para gerenciar este problema.
+
+`src/Model/Genero.php`
+```php
+<?php
+enum Genero { //Atencao: ENUMs foi implementado no PHP8.1
+    case ACAO;
+    case AVENTURA;
+    case COMEDIA;
+    case DRAMA;
+    case FICCAO_CIENTIFICA;
+    case FANTASIA;
+    case TERROR;
+    case ROMANCE;
+    case SUSPENSE;
+}
+```
+
+`src/Model/Filme.php`
+```php
+<?php
+  class Filme {
+      public array $notas = [];
+
+      public function __construct(
+        public readonly string $nome,
+        public readonly int $anoPublicacao,
+        public readonly Genero $genero,
+        public readonly string $estudio        
+      ) {
+        $this->notas = [];
+      }
+
+      public function avalia(float $nota): void {
+        $this->notas[] = $nota;
+      }
+  
+      public function calculaMedia(): float {
+        $total = array_sum($this->notas);
+        $quantidade = count($this->notas);
+        return $quantidade === 0 ? 0 : $total / $quantidade;
+      }
+  }
+?>
+```
+
+`src/index.php`
+```php
+<?php
+require __DIR__ . '/Model/Genero.php';
+require __DIR__ . '/Model/Filme.php';
+
+$filme = new Filme("O Senhor dos Anéis", 2001, Genero::FANTASIA, "New Line Cinema");
+
+$filme->avalia(8);
+$filme->avalia(9);
+$filme->avalia(10);
+
+var_dump($filme);
+
+echo "O Filme " . $filme->nome . " tem Média de avaliações: " . $filme->calculaMedia() . PHP_EOL;
+?>
+```
 
 ---
 
@@ -347,3 +412,7 @@ class Conta
 }
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Como podemos torná-lo um pouco mais robusto, impedindo que o saldo seja manipulado livremente, por exemplo? Altere o código da classe para que o saldo seja alterado somente através das operações de saque e depósito.
+
+2) Crie uma enum em PHP com tipos de contas bancárias e implemente um método informando se a conta possui taxas. Contas correntes e de investimento possuem taxas, enquanto contas poupança e universitárias não;
+
+3) Crie uma classe que represente uma conta com as propriedades saldo, nome do titular e tipo. Use os tipos e formas de acesso adequadas.
