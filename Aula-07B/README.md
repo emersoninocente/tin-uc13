@@ -144,3 +144,13 @@ echo $admin->exibirEmail() . PHP_EOL;    // OK
 ## Exercício:
 1) Com base no exemplo acima, modifique o código removendo ora um, ora outro comentário e execute o programa para identificar as diferenças.
 2) Com base ainda no exemplo acima, altere os **modificadores** (public, private, protected) e rode o programa para identificar as diferenças.
+
+---
+## 🧠 Raciocínio
+- Atributos **públicos** (`$nome`) são úteis quando queremos expor dados simples sem restrição.
+- Atributos **privados** (`$senha`) protegem informações sensíveis, evitando acesso direto.
+- Atributos **protegidos** (`$email`) permitem que subclasses manipulem dados herdados sem expor ao mundo externo.
+- Métodos **privados** (`criptografarSenha`) encapsulam lógica interna que não deve ser acessada fora.
+- Métodos **protegidos** (`getEmail`) permitem reutilização em herança.
+- Métodos **públicos** (`exibirNome`, `salvar`) são a interface oficial da classe para o "mundo externo".
+**Isso garante segurança, organização e flexibilidade no código**
