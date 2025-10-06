@@ -1,6 +1,8 @@
 # 🚀 - Aula 08
 
 ## 🎯 - Objetivos
+- Herança
+- Poliformismo
 
 ## 🧩 - Seguindo com a Orientação à Objetos
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Na aula anterior exploramos dois conceitos da Orientação à Objetos, a **Abstração** e **Encapsulamento**. Nesta aula vamos explorar os outros conceitos.
