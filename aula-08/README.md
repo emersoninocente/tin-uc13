@@ -273,6 +273,7 @@ echo "Duração total da maratona: $duracao minutos" . PHP_EOL;
 
 
 #### ✏️ - Exercícios
+> Este exercício deve ser codificado e **enviado por e-mail para o professor** (emerson.senac.gravatai@gmail.com) com assunto **TIN-M12 Poliformismo**.
 1) Crie uma interface Pagavel com um único método getValorTotal(): float.
     - Crie três classes que implementam Pagavel:
       - ContratoTrabalho: Deve ter propriedades como salarioMensal. O método getValorTotal deve simplesmente retornar o salário.
