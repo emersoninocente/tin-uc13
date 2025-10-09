@@ -31,6 +31,14 @@ class Gato extends Animal
     }
 }
 
+class Umpalumpa extends Animal 
+{
+    public function emitirSom(): string 
+    {
+        return $this->nome . " quer Cacau!";
+    }
+}
+
 // Esta funcao decladara abaixo esta fora da ideia de OOP, é uma declaracao
 // procedural.
 function fazerAnimalEmitirSom(Animal $animal) 
@@ -47,6 +55,7 @@ $meuGato = new Gato("Frajola");
 
 fazerAnimalEmitirSom($meuCachorro); // Saída: Rex faz: Au au!
 fazerAnimalEmitirSom($meuGato);     // Saída: Frajola faz: Miau!
+fazerAnimalEmitirSom(new Umpalumpa("Umpalumpa")); // Saída: Um quer Cacau!
 
 // TENTATIVA DE VIOLAR O ENCAPSULAMENTO (vai gerar um erro fatal)
 // $meuCachorro->nome = "Totó"; // Fatal error: Cannot access protected property Cachorro::$nome

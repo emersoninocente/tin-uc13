@@ -112,3 +112,4 @@ fazerAnimalEmitirSom($meuGato);     // Saída: Frajola faz: Miau!
       6) Crie um script para instanciar os arquivos, o consolidador e exibir o total geral.
 
       => **Obs.:** Neste momento não se preocupem em criar um código que efetivamente processe os dados, apenas em criar os fluxos. Podem usar comando de imprimir na console o que está ocorrendo ou onde está "passando".
+      **Exercício deve ser enviado por e-mail até 14/10, emerson.senac.gravatai@gmail.com com assunto TIN-M12 UC13 Exercício Aula 09.**
