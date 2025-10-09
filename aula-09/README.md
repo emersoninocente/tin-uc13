@@ -110,3 +110,5 @@ fazerAnimalEmitirSom($meuGato);     // Saída: Frajola faz: Miau!
       4) A classe `ConsolidadorDeVendas` deve ter um método `processar(array $arquivos)` que recebe um array de objetos que implementam a interface `Processavel`.
       5) Este método deve iterar sobre cada arquivo, chamar o método `lerValores()` de cada um, e somar todos os valores retornados para calcular o total geral das vendas do dia.
       6) Crie um script para instanciar os arquivos, o consolidador e exibir o total geral.
+
+      => **Obs.:** Neste momento não se preocupem em criar um código que efetivamente processe os dados, apenas em criar os fluxos. Podem usar comando de imprimir na console o que está ocorrendo ou onde está "passando".
