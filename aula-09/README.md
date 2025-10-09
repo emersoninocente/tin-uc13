@@ -97,10 +97,10 @@ fazerAnimalEmitirSom($meuGato);     // Saída: Frajola faz: Miau!
 
 ---
 ## Exercícios
-1) Processador de Arquivos de Vendas
+1) Processador de Arquivos de Vendas \
   **Cenário:** Você trabalha em um sistema de e-commerce que, ao final do dia, recebe múltiplos arquivos com os valores das vendas realizadas. O problema é que cada parceiro comercial envia o arquivo em um formato diferente (um em CSV, outro em TXT com um formato específico, etc.). Precisamos criar um sistema que processe todos esses arquivos e some o valor total das vendas, e que seja fácil de estender para novos formatos no futuro.
 
-    **Exercício:** \
+    **Exercício:** 
       1) Crie uma interface `Processavel` que define um contrato com um único método: `lerValores(): array`. Este método deve retornar um array de números (floats).
 
       2) Crie duas classes que implementam esta interface: \
