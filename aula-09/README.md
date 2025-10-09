@@ -104,7 +104,7 @@ fazerAnimalEmitirSom($meuGato);     // Saída: Frajola faz: Miau!
       1) Crie uma interface `Processavel` que define um contrato com um único método: `lerValores(): array`. Este método deve retornar um array de números (floats).
 
       2) Crie duas classes que implementam esta interface: \
-        - `ArquivoCsv`: No construtor, ela receberá uma string que simula o conteúdo de um arquivo CSV (ex: `"150.50,300.00,99.99"`). O método `lerValores` deve quebrar a string pela vírgula e retornar um array de floats.
+        - `ArquivoCsv`: No construtor, ela receberá uma string que simula o conteúdo de um arquivo CSV (ex: `"150.50,300.00,99.99"`). O método `lerValores` deve quebrar a string pela vírgula e retornar um array de floats. \
         - `ArquivoPipe`: No construtor, ela receberá uma string que simula um formato "pipe-separated" (ex: `"250.10|80.00|120.50"`). O método `lerValores` deve quebrar a string pelo pipe (`|`) e retornar um array de floats.
       3) Crie uma classe `ConsolidadorDeVendas`.
       4) A classe `ConsolidadorDeVendas` deve ter um método `processar(array $arquivos)` que recebe um array de objetos que implementam a interface `Processavel`.
