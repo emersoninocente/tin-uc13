@@ -1,104 +1,115 @@
-# 📦 Aula 09 – PHP + MariaDB com PDO
+# Aula 09
 
-## 🎯 Objetivos
+## Objetivos
+- Encapsulamento
+- Abstração
 
-- Usar namespace
-- Conectar PHP ao banco de dados usando PDO
-- Realizar operações CRUD básicas
+---
+## Encapsulamento
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O encapsulamento é o mecanismo de agrupar dados (propriedades) e os métodos que manipulam esses dados dentro de uma única unidade (a classe), escondendo a complexidade e protegendo o estado interno de acessos externos indesejados.
 
-## 🗃️ Namespace
+**A Implementação do Encapsulamento no Código:**
+1) `protected string $nome;`:
+    - **Onde:** Na declaração da propriedade dentro da classe `Animal`.
+    - **Como:** A palavra-chave `protected` é o coração do encapsulamento de dados aqui. Ela significa que a propriedade `$nome`:
+      - É acessível pela própria classe `Animal`.
+      - É acessível pelas classes filhas (`Cachorro`, `Gato`).
+      - **NÃO** É acessível pelo código fora dessa hierarquia (como demonstrado pelo erro fatal ao tentar `$meuCachorro->nome = "Totó";`).
+    - Estamos escondendo e protegendo o "estado interno" do objeto.
+2) `public function __construct(string $nome)`:
+    - **Onde:** No construtor da classe.
+    - **Como:** Este método é parte da "interface pública" do objeto. Ele é a porta de entrada controlada para definir o estado interno (`$nome`) no momento da criação. O mundo exterior não define `$nome` diretamente; ele pede ao construtor para fazer isso de forma segura.
+3) A Classe `Cachorro` como uma "Cápsula":
+    - **Onde:** Na definição da classe `Cachorro`.
+    - **Como:** A própria classe `Cachorro` atua como uma cápsula. Ela agrupa o dado que herdou (`$nome`) com o comportamento que o utiliza (`emitirSom`). A lógica `return $this->nome . " faz: Au au!";` está totalmente contida e protegida dentro da classe. O mundo exterior não precisa saber que o nome é concatenado com a string " faz: Au au!"; ele apenas chama `emitirSom()` e recebe o resultado final.
 
-> Namespaces no PHP são usados para organizar o código e evitar conflitos de nomes entre classes, funções ou constantes. Eles foram introduzidos no PHP 5.3 e são especialmente úteis em projetos grandes ou ao usar bibliotecas de terceiros. Um namespace é declarado no início de um arquivo PHP usando a palavra-chave `namespace`. Ele deve ser a primeira instrução do arquivo, antes de qualquer outro código.
-
-### ✏️ Exemplo
+### Exemplo:
+`Animal.php`
 
 ```php
-// ./MeuProjeto/MinhaClasse.php
 <?php
-namespace MeuProjeto;
+abstract class Animal 
+{
+    // Usamos 'protected' para que as classes filhas possam acessar o nome.
+    // O mundo exterior não pode. Isso é encapsulamento de dados.
+    protected string $nome;
 
-class MinhaClasse {
-    public function dizerOla() {
-        return "Olá do MeuProjeto!\n";
+    public function __construct(string $nome) 
+    {
+        $this->nome = $nome; // O nome é definido na criação e protegido.
+    }
+
+    // A assinatura do método (a interface pública) continua a mesma.
+    abstract public function emitirSom(): string;
+}
+
+class Cachorro extends Animal 
+{
+    public function emitirSom(): string 
+    {
+        // O método usa o estado interno (encapsulado) para compor sua resposta.
+        return $this->nome . " faz: Au au!";
     }
 }
-?>
-```
 
-```php
-// ./MeuProjeto/index.php
-<?php
-require 'MinhaClasse.php';
-
-use MeuProjeto\MinhaClasse;
-
-$obj = new MinhaClasse();
-echo $obj->dizerOla();
-?>
-```
-
----
-
-## 📚 Conectando com banco de dados
-
-- Conexão com SGBD usando PDO
-- Inserção, leitura, atualização e exclusão
-- Tratamento de erros
-
-### 💻 Exemplo de Código
-
-```php
-<?php
-// conexao.php
-// Teste de conexao simples
-try {
-   $dsn = 'mysql:host=localhost;dbname=biblioteca_db;charset=utf8';
-   $username = 'biblio_user';
-   $password = 'securepasswordbiblio';
-   $options = [
-       PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // Enable exceptions for errors
-       PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, // Fetch results as associative arrays
-   ];
-   $pdo = new PDO($dsn, $username, $password, $options);
-
-   if ($pdo) {
-       echo "Connected to the database successfully!";
-   }
-} catch (PDOException $e) {
-   echo 'Connection failed: ' . $e->getMessage();
+class Gato extends Animal 
+{
+    public function emitirSom(): string 
+    {
+        return $this->nome . " faz: Miau!";
+    }
 }
-?>
+
+function fazerAnimalEmitirSom(Animal $animal) 
+{
+    // Esta função NÃO MUDOU NADA.
+    // Ela continua sem saber nada sobre a propriedade 'nome'.
+    // Ela apenas usa a interface pública 'emitirSom()'.
+    echo $animal->emitirSom() . "\n";
+}
+
+// Instanciamos os objetos fornecendo o estado inicial via construtor
+$meuCachorro = new Cachorro("Rex");
+$meuGato = new Gato("Frajola");
+
+fazerAnimalEmitirSom($meuCachorro); // Saída: Rex faz: Au au!
+fazerAnimalEmitirSom($meuGato);     // Saída: Frajola faz: Miau!
+
+// TENTATIVA DE VIOLAR O ENCAPSULAMENTO (vai gerar um erro fatal)
+// $meuCachorro->nome = "Totó"; // Fatal error: Cannot access protected property Cachorro::$nome
 ```
 
-> No exemplo acima criamos um teste de conexão com banco de dados usando PDO. O PDO (PHP Data Objects) é uma interface leve e consistente para acessar bancos de dados em PHP. Ele suporta múltiplos drivers de banco de dados, como MySQL, PostgreSQL, SQLite, entre outros, permitindo que o mesmo código funcione em diferentes sistemas de banco de dados. Além disso, o PDO oferece suporte a **Prepared Statements**, que ajudam a prevenir ataques de SQL Injection.
+---
+## Abstração
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A abstração consiste em focar nas características essenciais de um objeto, ignorando os detalhes irrelevantes ou complexos. Ela cria um "molde" ou um "contrato" que define o que um objeto deve ser ou fazer, sem se preocupar em como ele fará.
 
-### Métodos Úteis do PDO
+**A Implementação da Abstração no Código (seguindo códio acima):**
+1) `abstract class Animal`:
+    - **Onde:** Na própria declaração da classe.
+    - **Como:** A palavra-chave `abstract` diz ao PHP: "Isto não é um animal de verdade, é a ideia de um animal". Ela cria um conceito. Você não pode instanciar um `Animal` genérico (`new Animal()`), porque a abstração está incompleta; ela precisa ser concretizada por uma classe filha. Estamos definindo o que é a essência de ser um animal no nosso sistema.
+2) `abstract public function emitirSom(): string;`:
+    - **Onde:** Na declaração do método dentro da classe abstrata.
+    - **Como:** Esta é a parte mais importante da abstração de comportamento. Esta linha é uma regra obrigatória. Ela estabelece que:
 
-- **query():** Executa uma consulta SQL diretamente, mas não é recomendado para dados fornecidos pelo usuário.
-- **prepare():** Prepara uma consulta SQL para execução.
-- **execute():** Executa uma consulta preparada.
-- **fetch():** Retorna uma única linha do resultado.
-- **fetchAll():** Retorna todas as linhas do resultado.
+            "Toda e qualquer classe que queira ser considerada uma extensão de `Animal` **DEVE**, obrigatoriamente, implementar um método chamado `emitirSom`. Este método não recebe parâmetros e precisa retornar uma string."
 
-### Tratamento de Erros
-
-O PDO oferece três modos de tratamento de erros:
-
-- **PDO::ERRMODE_SILENT:** Silencioso, não exibe erros.
-- **PDO::ERRMODE_WARNING:** Emite avisos.
-- **PDO::ERRMODE_EXCEPTION:** Lança exceções (recomendado).
-
-### Fechando a Conexão
-
-A conexão com o banco de dados é fechada automaticamente ao final do script. No entanto, você pode fechá-la manualmente atribuindo `null` à variável de conexão:
-
-`$conn = null;`
-
-O PDO é uma ferramenta poderosa e flexível para trabalhar com bancos de dados em PHP, oferecendo segurança, portabilidade e facilidade de uso.
+    - Note que não há corpo no método (`{...}`). A classe `Animal` não se importa como o som é emitido; ela apenas exige que a capacidade de emitir som exista. A abstração foca no "o quê" (a capacidade), não no "como" (a implementação).
 
 ---
+## Exercícios
+1) Processador de Arquivos de Vendas \
+  **Cenário:** Você trabalha em um sistema de e-commerce que, ao final do dia, recebe múltiplos arquivos com os valores das vendas realizadas. O problema é que cada parceiro comercial envia o arquivo em um formato diferente (um em CSV, outro em TXT com um formato específico, etc.). Precisamos criar um sistema que processe todos esses arquivos e some o valor total das vendas, e que seja fácil de estender para novos formatos no futuro.
 
-## 🧪 Exercícios
+    **Exercício:** 
+      1) Crie uma interface `Processavel` que define um contrato com um único método: `lerValores(): array`. Este método deve retornar um array de números (floats).
 
-1. Criar script para inserir novo livro.
-2. Criar script para listar todos os usuários.
+      2) Crie duas classes que implementam esta interface: \
+        - `ArquivoCsv`: No construtor, ela receberá uma string que simula o conteúdo de um arquivo CSV (ex: `"150.50,300.00,99.99"`). O método `lerValores` deve quebrar a string pela vírgula e retornar um array de floats. \
+        - `ArquivoPipe`: No construtor, ela receberá uma string que simula um formato "pipe-separated" (ex: `"250.10|80.00|120.50"`). O método `lerValores` deve quebrar a string pelo pipe (`|`) e retornar um array de floats.
+      3) Crie uma classe `ConsolidadorDeVendas`.
+      4) A classe `ConsolidadorDeVendas` deve ter um método `processar(array $arquivos)` que recebe um array de objetos que implementam a interface `Processavel`.
+      5) Este método deve iterar sobre cada arquivo, chamar o método `lerValores()` de cada um, e somar todos os valores retornados para calcular o total geral das vendas do dia.
+      6) Crie um script para instanciar os arquivos, o consolidador e exibir o total geral.
+
+      => **Obs.:** Neste momento não se preocupem em criar um código que efetivamente processe os dados, apenas em criar os fluxos. Podem usar comando de imprimir na console o que está ocorrendo ou onde está "passando".
+      **Exercício deve ser enviado por e-mail até 14/10, emerson.senac.gravatai@gmail.com com assunto TIN-M12 UC13 Exercício Aula 09.**
