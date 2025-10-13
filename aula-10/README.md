@@ -102,3 +102,11 @@ O PDO é uma ferramenta poderosa e flexível para trabalhar com bancos de dados 
 
 1. Criar script para inserir novo livro.
 2. Criar script para listar todos os usuários.
+
+---
+
+## 📚 Materiais Extras
+
+- [Introdução PDO](https://www.webmundi.com/desenvolvimento-de-sistemas/php/trabalhando-com-pdo-php/)
+- [CRUD PDO](https://devcontratado.com/blog/php/crud-php-orientado-a-objetos-mysql)
+- [Vídeo Aulas PHP](https://www.youtube.com/playlist?list=PLxNM4ef1BpxhLF9FwdmPUy4FHatqhPA2d)
