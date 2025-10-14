@@ -1,7 +1,7 @@
 <?php
 // config/database.php
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'biblioteca_db');
-define('DB_USER', 'biblio_user');
-define('DB_PASS', 'securepasswordbiblio');
+define('DB_HOST', '');
+define('DB_NAME', '');
+define('DB_USER', '');
+define('DB_PASS', '');
 define('DB_CHARSET', 'utf8mb4');
