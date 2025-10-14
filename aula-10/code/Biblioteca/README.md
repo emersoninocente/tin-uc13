@@ -1,0 +1,2 @@
+# Aplicação Gestão Biblioteca Simples
+> A presente aplicação está sendo desenvolvida para o curso de **Tecnico em Informática** do **SENAC RS - Unidade Gravataí** com a finalidade de orientar os alunos no processo de desenvolvimento de software para Internet. A aplicação consiste em desenvolvimento fullstack em **PHP8** com uso de **HTML5**, **CSS3** e **JavaScript** para front-end.
