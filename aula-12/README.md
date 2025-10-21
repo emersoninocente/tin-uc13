@@ -222,3 +222,9 @@ if ($ret) {
 }
 */
 ```
+
+---
+## Exercícios:
+1) Na classe UsuarioController, desenvolver métodos para Update e Delete usando a classe UsuarioModel para enviar os dados ao banco.
+2) Nos métodos já criados, recompor o array para retorno de todos os dados em buscarTodosUsurios()
+3) No método criarUsuario, finalizar a validação dos dados faltantes
