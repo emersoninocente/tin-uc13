@@ -128,3 +128,97 @@ if ($ret) {
 */
 ?>
 ```
+
+---
+## Criando classe UsuarioController
+```php
+<?php
+// src/Controllers/UsuarioController.php
+require_once __DIR__ . "/../Models/UsuarioModel.php";
+
+class UsuarioController {
+    private $usuarioModel;
+
+    public function __construct(){
+        $this->UsuarioModel = new UsuarioModel();
+    }
+
+    public function criarUsuario($nome, $email, $senha, $cpf, $telefone, $perfil, $ativo){
+        // Processo de validação dos dados recebidos
+        $nomeTratado = trim($nome);
+        if(empty($nomeTratado)){
+            throw new InvalidArgumentException("Nome inválido (não pode ser vazio)!");
+        }
+
+        $emailTratado = filter_var($email, FILTER_VALIDATE_EMAIL);
+        if($emailTratado === false){
+            throw new InvalidArgumentException("Email inválido!");
+        }
+
+        if(strlen($senha) < 6){
+            throw new InvalidArgumentException("Senha Inválida (deve ter mais de 6 caracteres)!");
+        }
+        // Devemos escrever as validações para todos os parâmetros informados no método
+        $cpfTratado = $cpf;
+        $telefoneTratado = $telefone;
+        // Estes dois campos não precisariam ser validados pois perfil pode ser informado diretamente no código conforme o perfil do usuário que acessa o sistema. Quanto ao ATIVO, na criação é sempre SIM.
+        $perfilTratado = $perfil;
+        $ativoTratado = $ativo;
+
+        return $this->UsuarioModel->create($nomeTratado, $emailTratado, $senha, $cpfTratado, $telefoneTratado, $perfilTratado, $ativoTratado);
+    }
+
+    /*
+     *   Precisam ser criados métodos aqui na controller para receber os dados
+     * da VIEW, validar e depois encaminhar de volta para VIEW em caso de erro ou
+     * para a Model se tudo Ok.
+     */
+
+    public function buscaTodosUsuarios(){
+        $data = $this->UsuarioModel->read();
+        foreach ($data as $user) {
+            $idToView = htmlspecialchars($user['id']);
+            $nameToView = htmlspecialchars($user['nome']);
+            $emailToView = htmlspecialchars($user['email']);
+            $cpfToView = htmlspecialchars($user['cpf']);
+            $telefoneToView = htmlspecialchars($user['telefone']);
+            $perfilToView = htmlspecialchars($user['perfil']);
+            $ativoToView = $user['ativo'];
+        }
+        // Precisamos recompor o array com todos os dados e ids.
+        return ([$idToView, $nameToView, $emailToView, $cpfToView, $telefoneToView, $perfilToView, $ativoToView]);
+    }
+}
+
+?>
+```
+
+### Modificando Index para uso do Controller
+```php
+<?php
+// index.php
+require_once __DIR__ . '/src/Controllers/UsuarioController.php';
+
+$usuario = new UsuarioController();
+
+// Listar usuários
+$ret = $usuario->buscaTodosUsuarios();
+var_dump($ret);
+/*
+foreach ($data as $user) {
+    echo "ID: " . $user['id'] . "\n";
+    echo "Nome: " . $user['nome'] . "\n";
+    echo "E-mail: " . $user['email'] . "\n\n";
+}
+*/
+// Criando um novo user
+// Executa o metodo da classe UsuarioController para criar um novo user
+/*
+$ret = $usuario->criarUsuario("","user06@biblioteca.com","P@ssw0rd","123.456.789-06","","bibliotecario",1);
+if ($ret) {
+    echo "Usuario criado com sucesso!";
+} else {
+    echo "Erro ao criar usuario!";
+}
+*/
+```
