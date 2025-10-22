@@ -228,3 +228,7 @@ if ($ret) {
 1) Na classe UsuarioController, desenvolver métodos para Update e Delete usando a classe UsuarioModel para enviar os dados ao banco.
 2) Nos métodos já criados, recompor o array para retorno de todos os dados em buscarTodosUsurios()
 3) No método criarUsuario, finalizar a validação dos dados faltantes
+
+Obs.: Aos alunos que estão com dificuldade de executar os códigos PHP, se existir a pasta C:\XAMPP no computador, pode ser usado o PHP existente dentro do XAMPP.
+No VS Code abra um terminal. Digite **C:\xampp\php\php.exe** seguido pelo caminho do seu arquivo `.php`.\
+Ex.: C:\xampp\php\php.exe .\aula-12\index.php
