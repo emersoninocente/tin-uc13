@@ -1,6 +1,7 @@
 # Aula 18/11
 
 ## Objetivos
+- Processo de controle de sessão
 - Apresentação do material produzido
 - Apreciação da proposta de Projeto Integrador
 
